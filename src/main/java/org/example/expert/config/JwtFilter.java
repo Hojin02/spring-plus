@@ -59,6 +59,8 @@ public class JwtFilter implements Filter {
 
             httpRequest.setAttribute("userId", Long.parseLong(claims.getSubject()));
             httpRequest.setAttribute("email", claims.get("email"));
+            // 닉네임 추가(프론트에서 꺼낼 수 있음)
+            httpRequest.setAttribute("nickname", claims.get("nickname"));
             httpRequest.setAttribute("userRole", claims.get("userRole"));
 
             if (url.startsWith("/admin")) {
