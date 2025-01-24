@@ -17,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -48,10 +51,17 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<TodoResponse> getTodos(int page, int size) {
+    public Page<TodoResponse> getTodos(int page, int size, String weather,String startDate, String endDate) {
         Pageable pageable = PageRequest.of(page - 1, size);
+        LocalDateTime mysqlMinDate = LocalDateTime.parse("1000-01-01T00:00:00");
+        LocalDateTime mysqlMaxDate = LocalDateTime.parse("9999-12-31T23:59:59");
 
-        Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+        LocalDateTime start = startDate==null ? mysqlMinDate : LocalDate.parse(startDate).atStartOfDay();
+        LocalDateTime end = endDate==null ? mysqlMaxDate : LocalDate.parse(endDate).atTime(23, 59, 59);
+
+
+
+        Page<Todo> todos = todoRepository.findTodosByFiltersOrderByModifiedAtDesc(pageable,weather,start,end);
 
         return todos.map(todo -> new TodoResponse(
                 todo.getId(),
