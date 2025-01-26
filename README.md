@@ -7,8 +7,8 @@
 5️⃣ [ 코드 개선 퀴즈 -  JPA의 이해](#a5)  
 6️⃣ [ JPA Cascade ](#a6)  
 7️⃣ [ N+1 ](#a7)  
-8️⃣ [ QueryDSL ](#a1)  
-9️⃣ [ Spring Security ](#a1)  
+8️⃣ [ QueryDSL ](#a8)  
+9️⃣ [ Spring Security ](#a9)  
 
 
 <a id="a1"></a>
